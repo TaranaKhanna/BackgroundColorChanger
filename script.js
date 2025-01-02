@@ -2,7 +2,7 @@ const randomColorGenerator = () => {
     let hex_code = "123456789ABCDEf";
     let randomColor = "#";
 
-    for(let i=0; i<6; i++){
+    for (let i = 0; i < 6; i++) {
         randomIndex = Math.floor(Math.random() * 15);
         randomColor += hex_code[randomIndex];
     }
@@ -15,16 +15,18 @@ const body = document.querySelector('body');
 
 let intervalId;
 
-const startChangingColor = function(){
-    intervalId = setInterval(changeBgColor, 1000);
-
-    function changeBgColor(){
-        body.style.backgroundColor = randomColorGenerator();
+const startChangingColor = function () {
+    if (!intervalId) {
+        intervalId = setInterval(() => {
+            body.style.backgroundColor = randomColorGenerator();
+        }, 1000);
     }
 };
 
-const stopChangingColor = function(){
+const stopChangingColor = function () {
     clearInterval(intervalId);
+    console.log(intervalId);
+    intervalId = null;
 }
 
 startBtn.addEventListener("click", startChangingColor);
